@@ -81,25 +81,33 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-[1440px] mx-auto px-6 py-8">
-        <div className="flex justify-center align-middle items-center mb-8">
-          <img src={brandLogo} alt="Logo" />
+      <div className="max-w-[1440px] mx-auto px-4 py-6 sm:px-6 sm:py-8">
+        <div className="flex justify-center items-center mb-6 sm:mb-8">
+          <img src={brandLogo} alt="Logo" className="h-12 sm:h-16" />
         </div>
-      <div className="flex justify-between align-middle items-center mb-8">
-        <div>
-          <h1 className="text-2xl font-semibold text-gray-900">Cameras</h1>
-          <p className="mt-1 text-sm text-gray-500">Manage your cameras here.</p>
+  
+        <div className="flex flex-col items-center sm:flex-row sm:justify-between sm:items-center text-center sm:text-left mb-6 sm:mb-8">
+          <div className="w-full sm:w-auto mb-4 sm:mb-0">
+            <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">
+              Cameras
+            </h1>
+            <p className="mt-1 text-sm text-gray-500">
+              Manage your cameras here.
+            </p>
+          </div>
+          <div className="w-full sm:w-auto">
+            <SearchBar value={searchQuery} onChange={setSearchQuery} />
+          </div>
         </div>
-          <SearchBar value={searchQuery} onChange={setSearchQuery} />
-      </div>
-
-        <div className="mb-6 flex flex-wrap items-center gap-4">
+  
+        <div className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-4">
           <FilterDropdown
             label="Location"
             icon={MapPinIcon}
             options={locations}
             value={locationFilter}
             onChange={setLocationFilter}
+            className="w-full sm:w-auto"
           />
           <FilterDropdown
             label="Status"
@@ -107,10 +115,11 @@ function App() {
             options={statuses}
             value={statusFilter}
             onChange={setStatusFilter}
+            className="w-full sm:w-auto"
           />
         </div>
-
-        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+  
+        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden mt-6">
           <CameraTable
             cameras={paginatedCameras}
             onStatusChange={handleStatusChange}
@@ -129,7 +138,7 @@ function App() {
         </div>
       </div>
     </div>
-  );
+  );    
 }
 
 export default App;
