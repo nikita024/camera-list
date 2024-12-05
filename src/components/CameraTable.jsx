@@ -3,16 +3,30 @@ import StatusBadge from './StatusBadge';
 import HealthIndicator from './HealthIndicator';
 import { MoreVertical, Trash2 } from 'lucide-react';
 
-const CameraTable = ({ cameras, onStatusChange, onDelete }) => { 
-
-  const [dropdownOpen, setDropdownOpen] = useState(null); 
+const CameraTable = ({ cameras, onStatusChange, onDelete }) => {
+  const [dropdownOpen, setDropdownOpen] = useState(null);
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [isAllSelected, setIsAllSelected] = useState(false);
 
   const toggleDropdown = (id) => {
-    setDropdownOpen(dropdownOpen === id ? null : id); 
+    setDropdownOpen(dropdownOpen === id ? null : id);
   };
 
-  const handleOutsideClick = () => {
-    setDropdownOpen(null);
+  const handleSelectAll = () => {
+    if (isAllSelected) {
+      setSelectedRows([]);
+    } else {
+      setSelectedRows(cameras.map((camera) => camera.id));
+    }
+    setIsAllSelected(!isAllSelected);
+  };
+
+  const handleRowSelect = (id) => {
+    if (selectedRows.includes(id)) {
+      setSelectedRows(selectedRows.filter((rowId) => rowId !== id));
+    } else {
+      setSelectedRows([...selectedRows, id]);
+    }
   };
 
   return (
@@ -21,7 +35,12 @@ const CameraTable = ({ cameras, onStatusChange, onDelete }) => {
         <thead className="bg-gray-50">
           <tr>
             <th scope="col" className="w-12 px-4 py-3">
-              <input type="checkbox" className="rounded border-gray-300" />
+              <input
+                type="checkbox"
+                className="rounded border-gray-300"
+                checked={isAllSelected}
+                onChange={handleSelectAll}
+              />
             </th>
             <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Name
@@ -50,11 +69,20 @@ const CameraTable = ({ cameras, onStatusChange, onDelete }) => {
           {cameras.map((camera) => (
             <tr key={camera.id} className="hover:bg-gray-50">
               <td className="px-4 py-4 whitespace-nowrap">
-                <input type="checkbox" className="rounded border-gray-300" />
+                <input
+                  type="checkbox"
+                  className="rounded border-gray-300"
+                  checked={selectedRows.includes(camera.id)}
+                  onChange={() => handleRowSelect(camera.id)}
+                />
               </td>
               <td className="px-4 py-4 whitespace-nowrap">
                 <div className="flex items-center">
-                  <div className={`h-2 w-2 rounded-full ${camera.current_status === 'Online' ? 'bg-green-500' : 'bg-red-500'} mr-2`} />
+                  <div
+                    className={`h-2 w-2 rounded-full ${
+                      camera.current_status === 'Online' ? 'bg-green-500' : 'bg-red-500'
+                    } mr-2`}
+                  />
                   <div>
                     <div className="flex items-center">
                       <span className="text-sm font-medium text-gray-900">{camera.name}</span>
@@ -71,19 +99,17 @@ const CameraTable = ({ cameras, onStatusChange, onDelete }) => {
               <td className="px-4 py-4 whitespace-nowrap">
                 <HealthIndicator cloud={camera.health?.cloud} device={camera.health?.device} />
               </td>
-              <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                {camera.location}
-              </td>
-              <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
-                {camera.recorder || 'N/A'}
-              </td>
+              <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{camera.location}</td>
+              <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{camera.recorder || 'N/A'}</td>
               <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                 {camera.tasks ? `${camera.tasks} Tasks` : 'N/A'}
               </td>
               <td className="px-4 py-4 whitespace-nowrap">
-                <StatusBadge 
-                  status={camera.status} 
-                  onClick={() => onStatusChange(camera.id, camera.status === 'Active' ? 'Inactive' : 'Active')}
+                <StatusBadge
+                  status={camera.status}
+                  onClick={() =>
+                    onStatusChange(camera.id, camera.status === 'Active' ? 'Inactive' : 'Active')
+                  }
                 />
               </td>
               <td className="px-4 py-4 whitespace-nowrap relative">
@@ -102,7 +128,7 @@ const CameraTable = ({ cameras, onStatusChange, onDelete }) => {
                       }}
                       className="flex items-center gap-2 block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
-                      <Trash2 size={16} color='red' />
+                      <Trash2 size={16} color="red" />
                       Delete
                     </button>
                   </div>
@@ -112,7 +138,6 @@ const CameraTable = ({ cameras, onStatusChange, onDelete }) => {
           ))}
         </tbody>
       </table>
-      {/* {dropdownOpen && <div onClick={handleOutsideClick} className="fixed inset-0 z-10" />} */}
     </div>
   );
 };
