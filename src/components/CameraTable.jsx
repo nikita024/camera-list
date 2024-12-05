@@ -3,7 +3,7 @@ import StatusBadge from './StatusBadge';
 import HealthIndicator from './HealthIndicator';
 import { MoreVertical, Trash2 } from 'lucide-react';
 
-const CameraTable = ({ cameras, onStatusChange, onDelete }) => {
+const CameraTable = ({ cameras, onStatusChange, onDelete }) => { 
 
   const [dropdownOpen, setDropdownOpen] = useState(null); 
 
@@ -112,7 +112,7 @@ const CameraTable = ({ cameras, onStatusChange, onDelete }) => {
           ))}
         </tbody>
       </table>
-      {dropdownOpen && <div onClick={handleOutsideClick} className="fixed inset-0 z-10" />}
+      {/* {dropdownOpen && <div onClick={handleOutsideClick} className="fixed inset-0 z-10" />} */}
     </div>
   );
 };
