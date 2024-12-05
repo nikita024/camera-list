@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project is a React-based implementation of a camera list table with various functionalities as per the assignment requirements for Wobot Intelligence Private Limited.
+This project is a React-based implementation of a camera list table with various functionalities.
 
 ## Features
 
@@ -34,46 +34,28 @@ The implementation should match the following design:
 ## Setup Instructions
 
 1. Clone the repository:
-   git clone [repository-url]
+   git clone [https://github.com/nikita024/camera-list.git]
 
 2. Navigate to the project directory:
-   cd [project-directory]
+   cd [camera-list]
 
 3. Install dependencies:
    npm install
 
 4. Start the development server:
-   npm start
+   npm run dev
 
-5. Open your browser and visit `http://localhost:3000` to view the application.
+5. Open your browser and visit `http://localhost:5173` to view the application.
 
 ## Deployment
 
-The project is deployed and accessible at: [Deployment URL]
+The project is deployed and accessible at: [https://camera-list-app.netlify.app/]
 
 ## Repository
 
-The source code is available at: [GitHub Repository URL]
+The source code is available at: [https://github.com/nikita024/camera-list]
 
 ## Technologies Used
 
 - React
-- [Any additional libraries or frameworks used]
-
-## Code Structure
-
-[Brief explanation of the project's file structure and main components]
-
-## Additional Notes
-
-- This project is frontend-only; all functionalities are handled on the client-side.
-- The UI is designed to be responsive and user-friendly.
-- Code is written with a focus on cleanliness, modularity, and reusability.
-
-## Contact
-
-For any queries regarding this assignment, please contact [Your Contact Information].
-
----
-
-**Note:** This assignment is confidential and should not be shared on social platforms.
+- Javascript
